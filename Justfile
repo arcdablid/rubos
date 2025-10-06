@@ -1,4 +1,4 @@
-export image_name := env("IMAGE_NAME", "image-template") # output image name, usually same as repo name, change as needed
+export image_name := env("IMAGE_NAME", "rubos") # output image name, usually same as repo name, change as needed
 export default_tag := env("DEFAULT_TAG", "latest")
 export bib_image := env("BIB_IMAGE", "quay.io/centos-bootc/bootc-image-builder:latest")
 
@@ -15,8 +15,8 @@ default:
 check:
     #!/usr/bin/bash
     find . -type f -name "*.just" | while read -r file; do
-    	echo "Checking syntax: $file"
-    	just --unstable --fmt --check -f $file
+        echo "Checking syntax: $file"
+        just --unstable --fmt --check -f $file
     done
     echo "Checking syntax: Justfile"
     just --unstable --fmt --check -f Justfile
@@ -26,8 +26,8 @@ check:
 fix:
     #!/usr/bin/bash
     find . -type f -name "*.just" | while read -r file; do
-    	echo "Checking syntax: $file"
-    	just --unstable --fmt -f $file
+        echo "Checking syntax: $file"
+        just --unstable --fmt -f $file
     done
     echo "Checking syntax: Justfile"
     just --unstable --fmt -f Justfile || { exit 1; }
@@ -169,18 +169,18 @@ _build-bib $target_image $tag $type $config: (_rootful_load_image target_image t
     BUILDTMP=$(mktemp -p "${PWD}" -d -t _build-bib.XXXXXXXXXX)
 
     sudo podman run \
-      --rm \
-      -it \
-      --privileged \
-      --pull=newer \
-      --net=host \
-      --security-opt label=type:unconfined_t \
-      -v $(pwd)/${config}:/config.toml:ro \
-      -v $BUILDTMP:/output \
-      -v /var/lib/containers/storage:/var/lib/containers/storage \
-      "${bib_image}" \
-      ${args} \
-      "${target_image}:${tag}"
+        --rm \
+        -it \
+        --privileged \
+        --pull=newer \
+        --net=host \
+        --security-opt label=type:unconfined_t \
+        -v $(pwd)/${config}:/config.toml:ro \
+        -v $BUILDTMP:/output \
+        -v /var/lib/containers/storage:/var/lib/containers/storage \
+        "${bib_image}" \
+        ${args} \
+        "${target_image}:${tag}"
 
     mkdir -p output
     sudo mv -f $BUILDTMP/* output/
@@ -285,13 +285,13 @@ spawn-vm rebuild="0" type="qcow2" ram="6G":
     [ "{{ rebuild }}" -eq 1 ] && echo "Rebuilding the ISO" && just build-vm {{ rebuild }} {{ type }}
 
     systemd-vmspawn \
-      -M "bootc-image" \
-      --console=gui \
-      --cpus=2 \
-      --ram=$(echo {{ ram }}| /usr/bin/numfmt --from=iec) \
-      --network-user-mode \
-      --vsock=false --pass-ssh-key=false \
-      -i ./output/**/*.{{ type }}
+        -M "bootc-image" \
+        --console=gui \
+        --cpus=2 \
+        --ram=$(echo {{ ram }}| /usr/bin/numfmt --from=iec) \
+        --network-user-mode \
+        --vsock=false --pass-ssh-key=false \
+        -i ./output/**/*.{{ type }}
 
 
 # Runs shell check on all Bash scripts
