@@ -12,7 +12,7 @@ set -euo pipefail
 declare -a dnf_pkgs=(
     "xonsh"
     "elvish"
-    "rust-nu"
+    "nu"
 
     "pipx"
     "python3-pip"
