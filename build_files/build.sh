@@ -10,7 +10,7 @@ handle_build_files() {
 
     for bf in "${build_files[@]}"; do
         printf "\n[build_file] %s\n" "$(basename "$bf")"
-        "$(realpath $script)"
+        "$(realpath $bf)"
     done
 }
 
