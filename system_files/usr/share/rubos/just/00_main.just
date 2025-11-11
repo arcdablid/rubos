@@ -8,7 +8,7 @@ rubos-install-flatpaks:
 
     echo "Installing Flatpaks..."
     # Read file lines without inline comments
-    xargs -a <( awk -F ' # ' '{print $1}' /usr/share/rubos/flatpak/flatpaks ) flatpak --system -y install
+    xargs -a <( awk -F ' # ' '{print $1}' /usr/share/rubos/flatpaks ) flatpak --system -y install
     echo "Flatpaks installation complete."
 
 # Install only Homebrews
@@ -16,8 +16,8 @@ rubos-install-brews:
     #!/usr/bin/env bash
     set -euo pipefail
 
-    echo "Installing Homebrew formulae..."
-    brew bundle --file /usr/share/rubos/homebrew/brewfile
+    echo "Installing Homebrew Formulae..."
+    brew bundle --file /usr/share/rubos/brewfile
     echo "Homebrew formulae installation complete."
 
 # Setup Ghostty terminal configuration
@@ -25,21 +25,21 @@ rubos-install-vscode-extentions:
     #!/usr/bin/env bash
     set -euo pipefail
 
-    echo "Installing Flatpaks..."
+    echo "Installing VSCode Extentions..."
     # Read file lines without inline comments
-    xargs -a <( awk -F ' # ' '{print $1}' /usr/share/rubos/vscode/extentions ) flatpak --system -y install
+    xargs -a <( awk -F ' # ' '{print $1}' /usr/share/rubos/vscode_extentions ) code --install-extension
     echo "Flatpaks installation complete."
 
 # Setup shell configurations (zsh, bash)
-rubos-setup-shells:
+rubos-setup-dotfiles:
     #!/usr/bin/env bash
     set -euo pipefail
 
     # Setup Bash configuration
     echo "Setting up Bash configuration..."
-    cp -f "/etc/skel/.bashrc" "${HOME}/.bashrc"
-    cp -f "/etc/skel/.bash_profile" "${HOME}/.bash_profile"
-    cp -f "/etc/skel/.bash_logout" "${HOME}/.bash_logout"
+    cp -f "/etc/arcdablid/.bashrc" "${HOME}/.bashrc"
+    cp -f "/etc/arcdablid/.bash_profile" "${HOME}/.bash_profile"
+    cp -f "/etc/arcdablid/.bash_logout" "${HOME}/.bash_logout"
     echo "Bash configuration complete."
 
     echo "Shell configurations setup complete."

@@ -1,6 +1,5 @@
-#!/bin/bash
-
-set -ouex pipefail
+#!/usr/bin/env bash
+set ${SET_X:+-x} -eou pipefail
 
 # get current Fedora version
 RELEASE="$(rpm -E %fedora)"
